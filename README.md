@@ -41,17 +41,20 @@ vscode插件市场，搜索`shadow reader`，安装
 1. 在主菜单选择`删除书籍`，选择书名`活着`，即可删除
 
 ### 自动老板键
-1. 若长时间不操作，会自动使用老板键，当前显示文本为`Hello World`
+1. 若长时间不操作，会自动使用老板键，当前显示文本为`Hello World`（可自行配置）
 2. 再次使用`alt+/`，可返回原文本
 
 ### 按内容向后搜索
 1. 点击状态栏，输入搜索文本
 ![feature X](./images/search.jpg)
+2. 支持百分比，如12%，方便搜索出错跳回
 
 ## Extension Settings
 * `shadowReader.pageSize`：每次最多显示字数（默认50）
 * `shadowReader.onlineBookURL`：在线书源，当前已支持笔趣阁
 * `shadowReader.hiddenTime`：自动切换至老板状态时间（单位秒，默认30）
+* `shadowReader.bossText`: 老板键模式下显示的文本
+* `shadowReader.trimNextLine`: 跳过空白和换行（仅对下一页阅读启用）
 * 修改快捷键：首选项 -- 键盘快捷方式
 ![feature X](./images/keybind.jpg)
 
@@ -60,9 +63,7 @@ vscode插件市场，搜索`shadow reader`，安装
 - 专注隐蔽性、易用性
 
 ## Known Issues
-- 上下一页的无反应（暂不清楚形成原因，可通过重新设置快捷键解决）
-- 笔趣阁在梯子下无法访问（请关闭梯子即可）
-- certificate expire [vscode issue](https://github.com/microsoft/vscode/issues/136787)，可通过禁用vscode证书验证实现![feature X](./images/certificate_expire.png)
+- 在线书籍网站经常变动
 
 ## Future Feature
 - 其他格式支持(比如.epub)

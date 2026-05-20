@@ -141,8 +141,8 @@ async function showBookLibraryList(context: ExtensionContext): Promise<string | 
 
 export function showSearchKeywordBox(context: ExtensionContext) {
     window.showInputBox({
-        placeHolder: "注意：会自动跳转",
-        prompt: "按照内容向后搜索"
+        placeHolder: "注意：会自动跳转，支持百分比如 12%",
+        prompt: "按照内容向后搜索，或输入百分比跳转"
     }).then(
         keyWord => {
             if (keyWord) {

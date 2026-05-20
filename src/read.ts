@@ -11,6 +11,23 @@ let bookPath: string = "";
 let parser: Parser;
 const readEOFTip = "";
 
+function shouldTrimNextLine(): boolean {
+  return <boolean>workspace.getConfiguration().get("shadowReader.trimNextLine");
+}
+
+function parseJumpPercent(keyword: string): number | null {
+  let matched = keyword.trim().match(/^(\d+(?:\.\d+)?)%$/);
+  if (!matched) {
+    return null;
+  }
+
+  let percent = Number(matched[1]);
+  if (Number.isNaN(percent) || percent < 0 || percent > 100) {
+    return null;
+  }
+  return percent;
+}
+
 
 function loadParser(context: ExtensionContext, bookPath: string): Parser {
   let store = context.globalState.get(bookPath, 0);
@@ -48,6 +65,9 @@ export async function readNextLine(context: ExtensionContext): Promise<string> {
   if (content.length === 0) {
     return readEOFTip;
   }
+  if (shouldTrimNextLine()) {
+    content = content.trim();
+  }
   let percent = parser.getPercent();
   context.globalState.update(bookPath, parser.getPersistHistory());
   return `${content}   ${percent}`;
@@ -79,6 +99,28 @@ export function loadFile(context: ExtensionContext, newfilePath: string) {
 }
 
 export async function searchContentToEnd(context: ExtensionContext, keyword: string): Promise<string> {
+  let jumpPercent = parseJumpPercent(keyword);
+  if (jumpPercent !== null) {
+    if (!(parser instanceof TxtFileParser)) {
+      return "仅本地 txt 支持百分比跳转";
+    }
+
+    let pageSize: number = <number>workspace.getConfiguration().get("shadowReader.pageSize");
+    parser.jumpToPercent(jumpPercent);
+    let content = await parser.getNextPage(pageSize);
+    if (content.length === 0) {
+      return readEOFTip;
+    }
+
+    if (shouldTrimNextLine()) {
+      content = content.trim();
+    }
+
+    let percent = parser.getPercent();
+    context.globalState.update(bookPath, parser.getPersistHistory());
+    return `${content}   ${percent}`;
+  }
+
   let keywordIndex = 0;
   let preLineEndMatch = false;
   let pageSize: number = <number>workspace.getConfiguration().get("shadowReader.pageSize");

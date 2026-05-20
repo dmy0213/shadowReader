@@ -2,7 +2,7 @@
 	"name": "shadow-reader",
 	"displayName": "shadow reader",
 	"description": "摸鱼划水看书，十分隐蔽",
-	"version": "0.8.2",
+	"version": "0.9.1",
 	"publisher": "rainbroadcast",
 	"engines": {
 		"vscode": "^1.54.0"
@@ -46,6 +46,16 @@
 					"type": "number",
 					"default": 30,
 					"description": "自动隐藏时间"
+				},
+				"shadowReader.bossText": {
+					"type": "string",
+					"default": "Hello world",
+					"description": "老板键模式下显示的文本"
+				},
+				"shadowReader.trimNextLine": {
+					"type": "boolean",
+					"default": false,
+					"description": "跳过空白和换行（仅对下一页阅读启用）"
 				}
 			}
 		},

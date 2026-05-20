@@ -44,7 +44,7 @@ export class BiquWebParser implements Parser {
             window.showErrorMessage("爬不到内容啦");
             return;
         }
-        this.cacheText = html.replace(/<p>.*<\/p>/g, '').replace(/<br><br>/g, '\n').trim();
+        this.cacheText = html.replace(/<p>.*<\/p>/g, '').replace(/<br><br>/g, '\n');
         this.title = $("h1").text();
         $(".bottem1>a").each((i, ele) => {
             switch (i) {

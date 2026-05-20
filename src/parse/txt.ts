@@ -34,7 +34,7 @@ export class TxtFileParser implements Parser {
             showText = showText.slice(0, lineBreakPosition);
         }
         
-        showText = showText.replace(/\r/g, '').trim();
+        showText = showText.replace(/\r/g, '');
         return [showText, bufferSize];
     }
 
@@ -56,6 +56,15 @@ export class TxtFileParser implements Parser {
             this.readedCount = 0;
         }
         return this.getNextPage(pageSize);
+    }
+
+    jumpToPercent(percent: number): void {
+        let normalizedPercent = Math.max(0, Math.min(100, percent));
+        let targetByte = Math.floor(this.totalByteSize * normalizedPercent / 100 / this.stringMaxSize) * this.stringMaxSize;
+        if (targetByte >= this.totalByteSize) {
+            targetByte = Math.max(0, this.totalByteSize - this.stringMaxSize);
+        }
+        this.readedCount = targetByte;
     }
 
     close(): void {

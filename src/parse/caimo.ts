@@ -46,7 +46,7 @@ export class CaimoWebParser implements Parser {
             return;
         }
 
-        this.cacheText = html.replace(/<p>/g, '').replace(/<\/p>/g, '\n').replace(/<div>.*<\/div>/g, '').trim();
+        this.cacheText = html.replace(/<p>/g, '').replace(/<\/p>/g, '\n').replace(/<div>.*<\/div>/g, '');
         this.title = $(".title em").text();
 
         this.prevPageURL = this.baseURL + $("#prev_url").prop("href");
